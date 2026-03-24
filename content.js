@@ -7,6 +7,7 @@ window.addEventListener('load', () => {
 });
 
 let jumpInterval = 5; // Default jump interval in seconds
+const intervals = [5, 10, 15, 30, 60, 120, 300, 600];
 
 function goForward(videoPlayer) {
   videoPlayer.currentTime += jumpInterval;
@@ -16,6 +17,14 @@ function goBackward(videoPlayer) {
   videoPlayer.currentTime -= jumpInterval;
 }
 
+function updateButtonLabels() {
+  const goForwardButton = document.getElementById('go-forward-button');
+  const goBackwardButton = document.getElementById('go-backward-button');
+  goForwardButton.textContent = `+${jumpInterval < 60 ? jumpInterval + 's' : Math.floor(jumpInterval / 60) + 'm'}`;
+  goBackwardButton.textContent = `-${jumpInterval < 60 ? jumpInterval + 's' : Math.floor(jumpInterval / 60) + 'm'}`;
+}
+
+// Listen for keydown events to trigger the goForward and goBackward functions when the right and left arrow keys are pressed, respectively. Also listen for Ctrl + Up and Ctrl + Down to change the jump interval.
 window.addEventListener('keydown', (event) => {
   const videoPlayer = document.querySelector('#shkplayer');
 
@@ -24,6 +33,22 @@ window.addEventListener('keydown', (event) => {
     goForward(videoPlayer);
   } else if (event.key === 'ArrowLeft') {
     goBackward(videoPlayer);
+  }
+
+  if (event.ctrlKey && event.key === 'ArrowUp') {
+    const index = intervals.findIndex((interval) => Number(interval) === Number(jumpInterval));
+    if (index < intervals.length - 1) {
+      jumpInterval = intervals[index + 1];
+      updateButtonLabels();
+    }
+  }
+
+  if (event.ctrlKey && event.key === 'ArrowDown') {
+    const index = intervals.findIndex((interval) => Number(interval) === Number(jumpInterval));
+    if (index > 0) {
+      jumpInterval = intervals[index - 1];
+      updateButtonLabels();
+    }
   }
 });
 
@@ -61,7 +86,6 @@ function createCustomControls(existingControlsContainer, videoPlayer) {
   //     videoPlayer.currentTime = jumpTimeSlider.value;
   //   });
 
-  const intervals = [5, 10, 15, 30, 60, 120, 300, 600];
   const jumpIntervalSelect = document.createElement('input');
   jumpIntervalSelect.type = 'range';
   jumpIntervalSelect.min = 0;
