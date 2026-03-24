@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "DigiOnline Video Player Extra Controls",
+  "version": "1.0",
+  "description": "Adds extra controls to the video player on DigiOnline.ro",
+  "background": {
+    "service_worker": "service-worker.js"
+  },
+  "permissions": ["contextMenus", "scripting", "activeTab"],
+  "content_scripts": [
+    {
+      "matches": ["https://www.digionline.ro/*"],
+      "js": ["content.js"]
+    }
+  ]
+}
