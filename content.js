@@ -36,18 +36,22 @@ window.addEventListener('keydown', (event) => {
   }
 
   if (event.ctrlKey && event.key === 'ArrowUp') {
+    const slider = document.getElementById('jump-interval-select');
     const index = intervals.findIndex((interval) => Number(interval) === Number(jumpInterval));
     if (index < intervals.length - 1) {
       jumpInterval = intervals[index + 1];
       updateButtonLabels();
+      slider.value = index + 1; // Update the slider position to match the new jump interval
     }
   }
 
   if (event.ctrlKey && event.key === 'ArrowDown') {
+    const slider = document.getElementById('jump-interval-select');
     const index = intervals.findIndex((interval) => Number(interval) === Number(jumpInterval));
     if (index > 0) {
       jumpInterval = intervals[index - 1];
       updateButtonLabels();
+      slider.value = index - 1; // Update the slider position to match the new jump interval
     }
   }
 });
