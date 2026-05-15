@@ -59,7 +59,7 @@ window.addEventListener('keydown', (event) => {
   }
 
   // Toggle fullscreen
-  if ((event.key = 'F')) {
+  if (event.key === 'f') {
     const fullscreenBtn = document.querySelector('.shaka-fullscreen-button');
     fullscreenBtn.click();
     // if (!document.fullscreenElement) {
@@ -67,6 +67,12 @@ window.addEventListener('keydown', (event) => {
     // } else {
     //   document.exitFullscreen();
     // }
+  }
+
+  // Toggle mute
+  if (event.key === 'm') {
+    const muteBtn = document.querySelector('.shaka-mute-button');
+    muteBtn.click();
   }
 });
 
