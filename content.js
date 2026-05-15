@@ -29,12 +29,14 @@ window.addEventListener('keydown', (event) => {
   const videoPlayer = document.querySelector('#shkplayer');
 
   if (!videoPlayer) return;
+  // Go forward or backward when the right or left arrow keys are pressed
   if (event.key === 'ArrowRight') {
     goForward(videoPlayer);
   } else if (event.key === 'ArrowLeft') {
     goBackward(videoPlayer);
   }
 
+  // Increase the jump interval when Ctrl + Up is pressed
   if (event.ctrlKey && event.key === 'ArrowUp') {
     const slider = document.getElementById('jump-interval-select');
     const index = intervals.findIndex((interval) => Number(interval) === Number(jumpInterval));
@@ -45,6 +47,7 @@ window.addEventListener('keydown', (event) => {
     }
   }
 
+  // Decrease the jump interval when Ctrl + Down is pressed
   if (event.ctrlKey && event.key === 'ArrowDown') {
     const slider = document.getElementById('jump-interval-select');
     const index = intervals.findIndex((interval) => Number(interval) === Number(jumpInterval));
@@ -53,6 +56,17 @@ window.addEventListener('keydown', (event) => {
       updateButtonLabels();
       slider.value = index - 1; // Update the slider position to match the new jump interval
     }
+  }
+
+  // Toggle fullscreen
+  if ((event.key = 'F')) {
+    const fullscreenBtn = document.querySelector('.shaka-fullscreen-button');
+    fullscreenBtn.click();
+    // if (!document.fullscreenElement) {
+    //   videoPlayer.requestFullscreen();
+    // } else {
+    //   document.exitFullscreen();
+    // }
   }
 });
 
